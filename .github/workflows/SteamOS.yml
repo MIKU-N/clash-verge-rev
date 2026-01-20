@@ -24,19 +24,19 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18' # 建议使用 LTS 版本
-          cache: 'npm' # 或 'pnpm' / 'yarn'，根据项目 lock 文件调整
+          cache: 'pnpm' # 或 'pnpm' / 'yarn'，根据项目 lock 文件调整
 
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
 
       - name: Install frontend dependencies
         # 如果项目用的是 pnpm 或 yarn，请相应修改命令
-        run: npm install
+        run: pnpm install
 
       - name: Build AppImage
         # Tauri 构建命令，--target 默认是 x86_64-unknown-linux-gnu
         # 这会自动生成 .AppImage 和 .deb
-        run: npm run tauri build -- --bundles appimage
+        run: pnpm tauri build -- --bundles appimage
 
       - name: Rename Artifact for SteamOS
         # 重命名文件以便识别
