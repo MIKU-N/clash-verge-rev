@@ -27,7 +27,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18' # 建议使用 LTS 版本
+          node-version: '22' # 建议使用 LTS 版本
           cache: 'pnpm' # 或 'pnpm' / 'yarn'，根据项目 lock 文件调整
 
       - name: Setup Rust
