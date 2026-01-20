@@ -5,7 +5,8 @@ on:
     tags:
       - 'v*'
   workflow_dispatch:
-
+permissions:
+  contents: write
 jobs:
   build-linux:
     runs-on: ubuntu-22.04
@@ -53,3 +54,17 @@ jobs:
         with:
           name: ClashVerge-SteamOS
           path: ClashVerge-SteamOS.AppImage
+
+        #  将文件上传到 GitHub Release
+      - name: Upload to Release
+        # 仅在检测到 Tag 推送时运行，避免手动触发时报错
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          # 指定要上传的文件路径
+          files: ClashVerge-SteamOS.AppImage
+          # 如果是 rc 版本，标记为预发布
+          prerelease: ${{ contains(github.ref_name, '-rc') }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
