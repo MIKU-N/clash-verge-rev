@@ -43,7 +43,7 @@ jobs:
       - name: Build AppImage
         # 修复点 5: Tauri v2 构建命令修正
         # 使用 run build 可以继承 package.json 里设置的内存限制 (max-old-space-size)
-        run: pnpm run build -- --bundles appimage
+        run: pnpm run build --bundles appimage
 
       - name: Rename Artifact for SteamOS
         run: |
